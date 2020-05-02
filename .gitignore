@@ -1,3 +1,6 @@
+# Ignore hidden files
+.*
+
 # Logs
 logs
 *.log
