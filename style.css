@@ -1,0 +1,160 @@
+div {
+  height: 100%;
+
+}
+
+
+
+.block {
+  /* max-width: 150px; */
+  /* width: 23.74%;  */
+
+
+  /* border: 1px outset blue; */
+  border: none;
+  background-color: transparent;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  color: black;
+}
+
+.container {
+  /* background-color: beige; */
+  width: auto;
+}
+
+
+.jumbotron {
+  margin: 0px;
+}
+
+
+
+table.table-fit {
+  width: auto !important;
+  table-layout: auto !important;
+}
+
+table.table-fit thead th,
+table.table-fit tfoot th {
+  width: auto !important;
+}
+
+table.table-fit tbody td,
+table.table-fit tfoot td {
+  width: auto !important;
+}
+
+
+/* Idea from creating board with css taken from  */
+/* https://css-tricks.com/table-borders-inside/ */
+
+.table {
+  margin: 5px;
+}
+
+table {
+  border-collapse: collapse;
+  margin: auto;
+  /* margin-bottom: 0px; */
+}
+
+table td {
+  border: 5px solid black;
+  /* margin: 5px;  */
+}
+
+table tr:first-child td {
+  border-top: 0;
+}
+
+table tr td:first-child {
+  border-left: 0;
+}
+
+table tr:last-child td {
+  border-bottom: 0;
+}
+
+table tr td:last-child {
+  border-right: 0;
+}
+
+
+table.subTable {
+  border-collapse: collapse;
+}
+
+table.subTable td {
+  border: 3px solid black;
+}
+
+table.subTable tr:first-child td {
+  border-top: 0;
+}
+
+table.subTable tr td:first-child {
+  border-left: 0;
+}
+
+table.subTable tr:last-child td {
+  border-bottom: 0;
+}
+
+table.subTable tr td:last-child {
+  border-right: 0;
+}
+
+
+
+
+
+
+.theme {
+  margin: 0 0.75em;
+
+}
+
+
+.theme-row {
+  text-align: center;
+
+  /* colspan: 3;  */
+}
+
+
+input[readonly] {
+  background-color: transparent;
+  border: 0;
+
+
+  box-shadow: none;
+}
+
+
+/* Disabled the blue highlighting on Bootstrap
+Reference: https://stackoverflow.com/questions/8622686/how-come-i-cant-remove-the-blue-textarea-border-in-twitter-bootstrap */
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active {
+  outline: 0px !important;
+  -webkit-appearance: none;
+  box-shadow: none !important;
+}
+
+
+
+h4,
+h6 {
+  text-align: center
+}

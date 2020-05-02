@@ -1,0 +1,396 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ultimate Tic Tac Toe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="/style.css">
+
+    <!-- Add Bootstrap4 and its dependencies -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+
+    <script src="/script.js"></script>
+
+</head>
+
+<body>
+    <!-- <p id="title"> Tic Tac Toe </p>
+    <p id="message"></p> -->
+    <div class="jumbotron">
+        <h6>You can only make a move on grids that are green</h6>
+        <h4 id="mainText"> Tic Tac Toe </h4>
+        <h6 id="subText"> Message</h6>
+        <div class="container">
+
+
+            <table class="table-fit">
+
+
+                <tbody>
+                    <tr>
+                        <td>
+                            <table class="table subTable table-fit board1">
+
+                                <tbody>
+                                    <tr>
+                                        <td><button type="button" class="btn block b1" value="1"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b2" value="2"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b3" value="3"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="btn block b4" value="4"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b5" value="5"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b6" value="6"></button>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="btn  block b7" value="7"></button>
+                                        </td>
+                                        <td><button type="button" class="btn  block b8" value="8"></button>
+                                        </td>
+                                        <td><button type="button" class="btn  block b9" value="9"></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            <table class="table subTable table-fit board2">
+
+                                <tbody>
+                                    <tr>
+                                        <td><button type="button" class="btn  block b1" value="1"></button>
+                                        </td>
+                                        <td><button type="button" class="btn  block b2" value="2"></button>
+                                        </td>
+                                        <td><button type="button" class="btn  block b3" value="3"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="btn  block b4" value="4"></button>
+                                        </td>
+                                        <td><button type="button" class="btn  block b5" value="5"></button>
+                                        </td>
+                                        <td><button type="button" class="btn  block b6" value="6"></button>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="btn  block b7" value="7"></button>
+                                        </td>
+                                        <td><button type="button" class="btn  block b8" value="8"></button>
+                                        </td>
+                                        <td><button type="button" class="btn  block b9" value="9"></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            <table class="table subTable table-fit board3">
+
+                                <tbody>
+                                    <tr>
+                                        <td><button type="button" class="btn block b1" value="1"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b2" value="2"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b3" value="3"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="btn block b4" value="4"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b5" value="5"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b6" value="6"></button>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="btn block b7" value="7"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b8" value="8"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b9" value="9"></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class="table subTable table-fit board4">
+
+                                <tbody>
+                                    <tr>
+                                        <td><button type="button" class="btn block b1" value="1"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b2" value="2"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b3" value="3"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="btn block b4" value="4"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b5" value="5"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b6" value="6"></button>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="btn block b7" value="7"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b8" value="8"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b9" value="9"></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            <table class="table subTable table-fit board5">
+
+                                <tbody>
+                                    <tr>
+                                        <td><button type="button" class="btn block b1" value="1"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b2" value="2"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b3" value="3"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="btn block b4" value="4"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b5" value="5"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b6" value="6"></button>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="btn block b7" value="7"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b8" value="8"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b9" value="9"></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            <table class="table subTable table-fit board6">
+
+                                <tbody>
+                                    <tr>
+                                        <td><button type="button" class="btn block b1" value="1"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b2" value="2"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b3" value="3"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="btn block b4" value="4"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b5" value="5"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b6" value="6"></button>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="btn block b7" value="7"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b8" value="8"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b9" value="9"></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class="table subTable table-fit board7">
+
+                                <tbody>
+                                    <tr>
+                                        <td><button type="button" class="btn block b1" value="1"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b2" value="2"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b3" value="3"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="btn block b4" value="4"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b5" value="5"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b6" value="6"></button>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="btn block b7" value="7"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b8" value="8"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b9" value="9"></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            <table class="table subTable table-fit board8">
+
+                                <tbody>
+                                    <tr>
+                                        <td><button type="button" class="btn block b1" value="1"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b2" value="2"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b3" value="3"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="btn block b4" value="4"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b5" value="5"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b6" value="6"></button>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="btn block b7" value="7"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b8" value="8"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b9" value="9"></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            <table class="table subTable table-fit board9">
+
+                                <tbody>
+                                    <tr>
+                                        <td><button type="button" class="btn block b1" value="1"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b2" value="2"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b3" value="3"></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="btn block b4" value="4"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b5" value="5"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b6" value="6"></button>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="btn block b7" value="7"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b8" value="8"></button>
+                                        </td>
+                                        <td><button type="button" class="btn block b9" value="9"></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+
+
+                <tfoot>
+                    <tr>
+
+                        <td class="theme-row" colspan="3">
+                            <br>
+                            <h5>Color Theme:
+
+                                <button type="button" id = "darkTheme" class="btn btn-secondary theme">Gray</button>
+                                <button type="button" id = "normalTheme" class="btn btn-dark theme">Normal</button>
+                                <button type="button" id = "blueTheme" class="btn btn-primary theme">Blue</button>
+                                <h5>
+
+
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+</body>
+
+
+</html>

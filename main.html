@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ultimate Tic Tac Toe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="/style.css">
+
+    <!-- Add Bootstrap4 and its dependencies -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+
+
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+
+
+
+</head>
+
+<body>
+    <div id="setupPage">
+
+        <form>
+
+            <div class="jumbotron jumbotron-fluid">
+
+                <div class="container">
+                    <h2>Ultimate Tic-Tac-Toe</h2>
+                    <p id="intro">We have created a name for you:</p>
+                    <form action="" method="POST" id="cool">
+                        <div class="form-group">
+                            <!-- <label for="usr">Name:</label> -->
+                            <input type="text" class="form-control" id="userName" name="name">
+                        </div>
+                        <p> You can edit your name. </p>
+                        <p>If you and your opponent have the same username, one player will have a 1 added to the end of
+                            their username </p>
+
+                        <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                    </form>
+                </div>
+            </div>
+
+
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <br>
+                        <p> To <b> start a new game,</b> <br> give this code to your opponent:</p>
+
+                        <p id="code"></p>
+
+                        <p> Tell your opponent to visit this site and enter the code on the right.</p>
+                        <p>The game will start after they enter the code.</p>
+
+
+                        <button type="button" class="btn btn-dark" id="play">Play</button>
+
+
+                    </div>
+                    <div class="col-6">
+                        <br>
+                        <p> To <b>join an existing game,</b> enter someone's game code: </p>
+                        <form action="" id="submit-code">
+                            <div class="form-group">
+                                <!-- <label for="usr">Name:</label> -->
+                                <!-- <input type="text" class="form-control" id="userName" name="name"> -->
+                                <input type="text" class="form-control" id="enter-code" name="enter-code">
+                            </div>
+                            <p id="code_error"></p>
+
+                            <button type="submit" class="btn btn-primary" id="sendCode">Submit</button>
+                        </form>
+
+
+                        <br>
+                        <p> To start a <b> random game,</b> click below:</p>
+                        <button type="button" class="btn btn-warning" id="randomBtn">Random</button>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- <p id="wow"></p> -->
+
+
+    </div>
+
+
+
+
+</body>
+
+
+<script>
+    // Function mainly taken from Individual Project Specifications Documment: https://jsfiddle.net/ygo5a48r/
+    function randomUsername() {
+        let parts = [];
+        parts.push(["Tiny", "Big", "Medium", "Giant"]);
+        parts.push(["Liquid", "Dynamic", "Bad", "Good", "Round"]);
+        parts.push(["Mushroom", "Lemon", "Pinecone", "Nitrogen", "Potato"]);
+
+        username = "";
+        for (part of parts) {
+            username += part[Math.floor(Math.random() * part.length)];
+        }
+        console.log(username);
+
+
+        return username;
+    }
+
+
+
+    $(document).ready(function () {
+        // unable to fetch username 
+        let userName = getCookie("uname");
+        if (userName === "") {
+            // There is no user name 
+            console.log("cookie not found");
+            userName = randomUsername();
+            $("#userName").val(userName);
+
+            // $("#userName").val(userName);
+            // socket.emit('newUser');
+        } else {
+            // Retrieve the username and say welcome back 
+            $("#intro").text("Welcome Back")
+            $("#userName").val(userName);
+
+        }
+
+        let code = "";
+
+        //let test = randomUsername();
+
+
+
+
+        let socket = io();
+        console.log("hello here");
+
+
+        // Call the function 
+        socket.emit('createCode');
+
+        socket.on('createCode', function (randomCode) {
+
+            console.log("what is code", randomCode);
+            code = randomCode;
+            $("#code").html("<b>" + code + "</b>");
+
+
+
+        });
+
+        // Cannot get submit name to work 
+        // Putting form gets it to work somehow 
+        $("#cool").submit(function (w) {
+            w.preventDefault();
+            // $("#wow").text("testing");
+            // console.log("inside name form");
+            return false;
+
+        });
+
+
+        // Someone else submits the code --- 
+        $('#submit-code').submit(function (w) {
+            w.preventDefault();
+            // When the submit is clicked get the message from id
+            // $('#wow').text($("#userName").val());
+            document.cookie = "uname" + " = " + $("#userName").val() + ";";
+            document.cookie = "roomID" + " = " + $("#enter-code").val() + ";";
+            //document.cookie = "theme" + " = " + "normal" + ";";
+
+            socket.emit('submitCode', $("#userName").val(), $("#enter-code").val());
+
+            // add username to cookie, also want to add the ID too 
+            // document.cookie = "uname" + " = " + newName + ";";
+
+
+            //$('#m').val('');
+            //return false;
+
+            // load game ....     ....  ......   ..... ..... 
+        });
+
+
+        socket.on('errorCode', function () {
+            $("#code_error").text("This code is invalid");
+
+
+
+        });
+
+
+        socket.on('getID', function (id) {
+            document.cookie = "roomID" + " = " + id + ";";
+            // document.cookie = "theme" + " = " + "normal" + ";";
+
+        });
+
+
+        socket.on('newName', function (userName) {
+            document.cookie = "uname" + " = " + userName + ";";
+            console.log("name changed", document.cookie);
+
+
+        });
+
+
+        socket.on('loadGame', function () {
+            window.location.replace("index.html");
+            //$("#setupPage").hide(); 
+
+
+        });
+
+        socket.on('initLoad', function () {
+            socket.emit('cool', code);
+
+        });
+
+
+        $("#randomBtn").on('click', function () {
+
+            socket.emit('createRandomGame', $("#userName").val(), code);
+            $("#userName").prop("readonly", true);
+            $("#play").prop('disabled', true);
+            $("#enter-code").prop("readonly", true);
+            $("#sendCode").prop('disabled', true);
+            $("#randomBtn").prop('disabled', true);
+
+            // cookie for username is working 
+            document.cookie = "uname" + " = " + $("#userName").val() + ";";
+            document.cookie = "roomID" + " = " + code + ";";
+            //document.cookie = "theme" + " = " + "normal" + ";";
+
+
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+        // send data to users 
+        $("#play").click(function () {
+            // alert("button");
+            //$('#wow').text("play button test");
+            // Allows back -- how to change it 
+            //window.location.href = "index.html";
+            // window.location.replace("index.html");
+            // How to stop users from changing data 
+            $("#userName").prop("readonly", true);
+            $("#play").prop('disabled', true);
+            $("#enter-code").prop("readonly", true);
+            $("#sendCode").prop('disabled', true);
+            $("#randomBtn").prop('disabled', true);
+
+            // cookie for username is working 
+            document.cookie = "uname" + " = " + $("#userName").val() + ";";
+            document.cookie = "roomID" + " = " + code + ";";
+            // document.cookie = "theme" + " = " + "normal" + ";";
+            console.log("code before play", code);
+            console.log("cookie contents", document.cookie);
+            console.log("cookie printing", getCookie("uname"), "Code is", getCookie("roomID"));
+            socket.emit('play', $("#userName").val(), code);
+
+        });
+
+
+
+
+
+
+
+        function getCookie(uname) {
+            // Reference: https://www.w3schools.com/js/js_cookies.asp 
+            // How to get a cookie in javascript 
+
+            let find = uname + "=";
+            // var decodedCookie = decodeURIComponent(document.cookie);
+            let data = document.cookie.split(';');
+            for (let i = 0; i < data.length; i++) {
+                var cookieItem = data[i];
+                while (cookieItem.charAt(0) == ' ') {
+                    cookieItem = cookieItem.substring(1);
+                }
+                if (cookieItem.indexOf(find) == 0) {
+                    return cookieItem.substring(find.length, cookieItem.length);
+                }
+            }
+
+
+            return "";
+        }
+
+
+
+
+
+    });
+</script>
+
+
+</html>
